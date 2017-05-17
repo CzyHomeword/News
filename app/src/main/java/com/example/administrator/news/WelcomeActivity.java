@@ -1,8 +1,6 @@
 package com.example.administrator.news;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,16 +8,11 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
-
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class WecomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -89,17 +82,12 @@ public class WecomeActivity extends AppCompatActivity {
             return false;
         }
     };
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_wecome);
+        setContentView(R.layout.activity_welcome);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
@@ -118,27 +106,20 @@ public class WecomeActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        //client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
-
-    if(SPUtil.getFirstRun(WecomeActivity.this))
-    {
-        startAcyivity(new Intent(WecomeActivity.this, GuideActivity.class));
-        SPUtil.setIsFirstRun(WecomeActivity.this, false);
+    if(SPUtil.getIsFirstRun(WelcomeActivity.this)) {
+                 startActivity(new Intent(WelcomeActivity.this,GuideActivity.class));
+                   SPUtil.setIsFirstRun(WelcomeActivity.this,false);
     }else{
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(WecomeActivity.this, MainActivity.class));
+                startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
                 finish();
-
             }
-        }, 2000);
+        },2000);
     }
 
-}
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -191,5 +172,4 @@ public class WecomeActivity extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
-    }
-
+}

@@ -18,7 +18,7 @@ import android.widget.ViewFlipper;
  * status bar and navigation/system bar) with user interaction.
  */
 public class GuideActivity extends Activity {
-   private ViewFlipper guide_flipper;
+    private ViewFlipper guide_flipper;
     private CustomGestureDetectorListener  mDetectorListener;
     private GestureDetector mGestureDetector;
     private TextView txtStart;
@@ -47,9 +47,6 @@ public class GuideActivity extends Activity {
         mGestureDetector.onTouchEvent(event);
         return super.onTouchEvent(event);
     }
-
-
-
 
 class CustomGestureDetectorListener extends GestureDetector.SimpleOnGestureListener {
     @Override

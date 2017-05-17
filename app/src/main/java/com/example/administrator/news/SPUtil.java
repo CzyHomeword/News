@@ -20,6 +20,8 @@ public class SPUtil {
     public static void setIsFirstRun(Context context,boolean b){
         SharedPreferences sp = context.getSharedPreferences(FIRST_SP,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean(FIRST_RUN,b);
+
         editor.commit();
     }
 }
