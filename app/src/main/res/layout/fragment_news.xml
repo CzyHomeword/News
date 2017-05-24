@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.administrator.news.MainActivity">
+    tools:context="com.example.administrator.news.activity.MainActivity">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="第一页"
-        android:id="@+id/txt_content"/>
+        android:background="@android:color/holo_blue_light"
+        android:id="@+id/news_listview"/>
 </LinearLayout>

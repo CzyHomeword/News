@@ -1,12 +1,21 @@
-package com.example.administrator.news;
+package com.example.administrator.news.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.example.administrator.news.R;
+import com.example.administrator.news.util.SPUtil;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -82,6 +91,11 @@ public class WelcomeActivity extends AppCompatActivity {
             return false;
         }
     };
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,19 +120,21 @@ public class WelcomeActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        if(SPUtil.getIsFirstRun(WelcomeActivity.this)){
+            startActivity(new Intent(WelcomeActivity.this,GuideActivity.class));
+            SPUtil.setIsFirstRun(WelcomeActivity.this,false);
+        }else{
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
+                    finish();
+                }
+            },200);
+        }
     }
-    if(SPUtil.getIsFirstRun(WelcomeActivity.this)) {
-                 startActivity(new Intent(WelcomeActivity.this,GuideActivity.class));
-                   SPUtil.setIsFirstRun(WelcomeActivity.this,false);
-    }else{
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
-                finish();
-            }
-        },2000);
-    }
+
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -172,4 +188,5 @@ public class WelcomeActivity extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
+
 }

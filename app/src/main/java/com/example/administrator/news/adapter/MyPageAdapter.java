@@ -1,8 +1,10 @@
-package com.example.administrator.news;
+package com.example.administrator.news.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.example.administrator.news.fragment.NewsFragment;
 
 import java.util.ArrayList;
 
@@ -12,9 +14,9 @@ import java.util.ArrayList;
 
 public class MyPageAdapter extends FragmentPagerAdapter {
     private ArrayList<NewsFragment> mFragmentArrayList;
-    private  ArrayList<String> mTitleList;
+    private ArrayList<String> mTitleList;
 
-    public MyPageAdapter(FragmentManager fm ,ArrayList<NewsFragment> fragmentArrayList,ArrayList<String> titleList) {
+    public MyPageAdapter(FragmentManager fm, ArrayList<NewsFragment> fragmentArrayList, ArrayList<String> titleList) {
         super(fm);
         this.mFragmentArrayList = fragmentArrayList;
         this.mTitleList = titleList;
@@ -38,9 +40,10 @@ public class MyPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        if(mTitleList != null && position < mTitleList.size()){
-            return  mTitleList.get(position);
+        if(mTitleList != null && position < mTitleList.size()) {
+            return mTitleList.get(position);
         }
+
         return "notitle";
     }
 }

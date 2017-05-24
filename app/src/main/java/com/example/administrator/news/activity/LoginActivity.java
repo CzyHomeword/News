@@ -1,0 +1,60 @@
+package com.example.administrator.news.activity;
+
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+public class LoginActivity extends AppCompatActivity {
+    private EditText edtPhone;
+    private EditText edtCode;
+    private Button btnGetcode;
+    private Button btnLog;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        initViews();
+    }
+
+    private void initViews() {
+        edtPhone = (EditText) findViewById(R.id.edt_phone);
+        edtCode = (EditText)findViewById(R.id.edt_code);
+        btnGetcode = (Button) findViewById(R.id.btn_getcode);
+        btnLog = (Button) findViewById(R.id.btn_log);
+
+        final String phone = edtPhone.getText().toString();
+
+        btnGetcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BmobSMS.requestSMSCode(phone, "bombtest", new QueryListener<Integer>() {
+                    @Override
+                    public void done(Integer integer, BmobException e) {
+
+                    }
+                });
+            }
+        });
+
+        final String code = edtCode.getText().toString();
+        btnLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BmobUser.loginBySMSCode(phone, code, new LogInListener<BmobUser>() {
+                    @Override
+                    public void done(BmobUser bmobUser, BmobException e) {
+                        if(e == null){
+                            Log.e("AAA", "log success " +  BmobUser.getCurrentUser().getMobilePhoneNumber());
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
+}
