@@ -1,5 +1,18 @@
 package com.example.administrator.news.adapter;
 
+import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.bumptech.glide.Glide;
+import com.example.administrator.news.R;
+import com.example.administrator.news.activity.ReadActivity;
+import com.example.administrator.news.data.NewsData;
+
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/5/24.
  */
@@ -19,13 +32,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
     @Override
     public void onBindViewHolder(final NewsViewHolder holder, int position) {
         final NewsData.ResultBean.NewsBean news = mNewsList.get(position);
-//        news.getImgurl()
-//        holder.imgView
+
         holder.titleView.setText(news.getTitle());
         Glide.with(holder.imgView.getContext())
                 .load(news.getThumbnail_pic_s())
                 .into(holder.imgView);
-
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,13 +50,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return mNewsList.size();
     }
-
-
     public void changData(List<NewsData.ResultBean.NewsBean> newsList) {
         this.mNewsList = newsList;
         notifyDataSetChanged();

@@ -30,10 +30,5 @@
             android:layout_height="wrap_content"
             android:text="评论"
             android:id="@+id/btn_comment"/>
-
-
-
-
-
-    </LinearLayout>
+</LinearLayout>
 </RelativeLayout>

@@ -1,14 +1,30 @@
 package com.example.administrator.news.fragment;
-
-import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.administrator.news.R;
+import com.example.administrator.news.adapter.NewsAdapter;
+import com.example.administrator.news.data.NewsData;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by Administrator on 2017/5/17.
@@ -79,6 +95,8 @@ public class NewsFragment extends Fragment {
 
         }
 
+
+
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -102,15 +120,10 @@ public class NewsFragment extends Fragment {
         Log.e("AAA", "onCreateView");
         View view = inflater.inflate(R.layout.fragment_news, container, false);
 
-//        txtContent = (TextView) view.findViewById(R.id.txt_content);
-//        txtContent.setText(text);
-
         mRecyclerView = (RecyclerView) view.findViewById(R.id.news_listview);
         mNewsAdapter = new NewsAdapter(mNewsList);
         mRecyclerView.setAdapter(mNewsAdapter);
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         return view;
     }
 
@@ -118,6 +131,4 @@ public class NewsFragment extends Fragment {
         Log.e("AAA", "setTxtContent");
         this.text = text;
     }
-
-
 }

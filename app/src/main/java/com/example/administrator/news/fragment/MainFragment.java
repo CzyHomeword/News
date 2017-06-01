@@ -1,52 +1,73 @@
-package com.example.administrator.news.activity;
+package com.example.administrator.news.fragment;
 
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.example.administrator.news.adapter.MyPageAdapter;
-import com.example.administrator.news.fragment.NewsFragment;
 import com.example.administrator.news.R;
+import com.example.administrator.news.adapter.MyPageAdapter;
 
 import java.util.ArrayList;
 
-public class MainActivity extends FragmentActivity {
+/**
+ * Created by Administrator on 2017/6/1.
+ */
+
+public class MainFragment extends Fragment {
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private MyPageAdapter mPageAdapter;
-    private ArrayList<NewsFragment> mFragmentArrayList = new ArrayList<NewsFragment>();
-    private ArrayList<String> mTitleList = new ArrayList<String>();;
-
+    private ArrayList<NewsFragment> mFragmentArrayList;
+    private ArrayList<String> mTitleList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
         initFragmentArrayList();
         initTitleList();
+    }
 
-        mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_main, container, false);
 
-        mPageAdapter = new MyPageAdapter(getSupportFragmentManager(), mFragmentArrayList, mTitleList);
+        mTabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
+        mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
+
+        if(mPageAdapter == null) {
+            mPageAdapter = new MyPageAdapter(getFragmentManager(), mFragmentArrayList, mTitleList);
+        }
         mViewPager.setAdapter(mPageAdapter);
         mViewPager.setOffscreenPageLimit(4);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        return view;
     }
+
+
     private void initTitleList() {
 
+        if(mTitleList == null){
+            mTitleList = new ArrayList<>();
+        }
         mTitleList.add("头条");
         mTitleList.add("娱乐");
         mTitleList.add("体育");
         mTitleList.add("科技");
     }
+
     private void initFragmentArrayList() {
         NewsFragment fa = new NewsFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("NEWSTYPE", 1);
         fa.setArguments(bundle);
+
 
         NewsFragment fb = new NewsFragment();
         Bundle bundle2 = new Bundle();
@@ -62,6 +83,10 @@ public class MainActivity extends FragmentActivity {
         Bundle bundle4 = new Bundle();
         bundle4.putInt("NEWSTYPE", 4);
         fd.setArguments(bundle4);
+
+        if(mFragmentArrayList == null){
+            mFragmentArrayList = new ArrayList<>();
+        }
 
         mFragmentArrayList.add(fa);
         mFragmentArrayList.add(fb);

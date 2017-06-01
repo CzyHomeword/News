@@ -1,5 +1,7 @@
 package com.example.administrator.news.data;
 
+import cn.bmob.v3.listener.SaveListener;
+
 /**
  * Created by Administrator on 2017/5/24.
  */
@@ -41,5 +43,9 @@ public class CommentData {
 
     public void setNewsTitle(String newsTitle) {
         this.newsTitle = newsTitle;
+    }
+
+    public void save(SaveListener<String> aaa) {
+
     }
 }
